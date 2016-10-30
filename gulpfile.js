@@ -64,7 +64,12 @@ gulp.task('copy:assets', () => {
     .pipe(gulp.dest('.tmp'))
 })
 
-gulp.task('watch', ['copy:assets'], function () {
+gulp.task('copy:bower', () => {
+  return gulp.src('bower_components/fingerprintjs2/fingerprint2.js')
+    .pipe(gulp.dest('.tmp'))
+})
+
+gulp.task('watch', ['copy:assets', 'copy:bower'], function () {
   var args = merge(watchify.args, { debug: true })
   var bundler = watchify(browserify('lib/index.js', args))
     .transform(babelify, { presets: ['es2015'] })
